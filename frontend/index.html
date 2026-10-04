@@ -1,55 +1,752 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShopLite</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f5f7fa; color: #222; }
-    header { background: #111827; color: white; padding: 22px 8%; }
-    main { max-width: 1000px; margin: 35px auto; padding: 0 20px; }
-    .hero { background: white; padding: 28px; border-radius: 12px; margin-bottom: 24px; }
-    button { background: #2563eb; color: white; border: 0; padding: 10px 16px; border-radius: 7px; cursor: pointer; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-    .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px #0001; }
-    .price { font-size: 20px; font-weight: bold; }
-    #status { margin-top: 15px; color: #555; }
-  </style>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ShopLite</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        body {
+            background: #f4f6f9;
+            color: #1f2937;
+        }
+
+
+        /* =========================
+           Dashboard Layout
+        ========================= */
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           Sidebar
+        ========================= */
+
+        .sidebar {
+            width: 240px;
+            background: #111827;
+            color: white;
+            padding: 25px 18px;
+        }
+
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            padding-left: 10px;
+        }
+
+
+        .logo span {
+            color: #6366f1;
+        }
+
+
+        .menu {
+            list-style: none;
+        }
+
+
+        .menu li {
+            margin-bottom: 8px;
+        }
+
+
+        .menu a {
+            display: block;
+            padding: 13px 15px;
+            color: #9ca3af;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+
+        .menu a:hover,
+        .menu a.active {
+            background: #1f2937;
+            color: white;
+        }
+
+
+        /* =========================
+           Main
+        ========================= */
+
+        .main {
+            flex: 1;
+            padding: 30px;
+        }
+
+
+        /* =========================
+           Topbar
+        ========================= */
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+
+        .topbar h1 {
+            font-size: 28px;
+        }
+
+
+        .topbar p {
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+
+        .user {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+
+        /* =========================
+           Statistics
+        ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+
+        .stat-card p {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+
+        .stat-card h2 {
+            font-size: 28px;
+        }
+
+
+        /* =========================
+           Products Section
+        ========================= */
+
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+
+        .panel-header h2 {
+            font-size: 20px;
+        }
+
+
+        button {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 7px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+
+        button:hover {
+            background: #4f46e5;
+        }
+
+
+        /* =========================
+           Product Grid
+        ========================= */
+
+        .grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fill, minmax(220px, 1fr));
+
+            gap: 20px;
+        }
+
+
+        .product-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            transition: 0.2s;
+        }
+
+
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+
+        .product-id {
+            color: #9ca3af;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+
+        .product-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+
+        .description {
+            color: #6b7280;
+            font-size: 14px;
+            min-height: 40px;
+            margin-bottom: 15px;
+        }
+
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #16a34a;
+        }
+
+
+        /* =========================
+           Status
+        ========================= */
+
+        #status {
+            margin-bottom: 20px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+
+        .success {
+            color: #16a34a !important;
+        }
+
+
+        .error {
+            color: #dc2626 !important;
+        }
+
+
+        .empty {
+            text-align: center;
+            color: #9ca3af;
+            padding: 40px;
+        }
+
+
+        /* =========================
+           Responsive
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                display: none;
+            }
+
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .main {
+                padding: 15px;
+            }
+
+
+            .topbar h1 {
+                font-size: 22px;
+            }
+
+
+            .user {
+                display: none;
+            }
+
+
+            .panel {
+                padding: 18px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body>
-<header><h1>ShopLite</h1><p>Kubernetes Microservices Demo</p></header>
-<main>
-  <section class="hero">
-    <h2>Products</h2>
-    <button onclick="loadProducts()">Refresh Products</button>
-    <div id="status">Loading...</div>
-  </section>
-  <section id="products" class="grid"></section>
-</main>
+
+
+<div class="dashboard">
+
+
+    <!-- =========================
+         Sidebar
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            Shop<span>Lite</span>
+        </div>
+
+
+        <ul class="menu">
+
+            <li>
+                <a href="#" class="active">
+                    Dashboard
+                </a>
+            </li>
+
+
+            <li>
+                <a href="#">
+                    Products
+                </a>
+            </li>
+
+
+            <li>
+                <a href="#">
+                    Orders
+                </a>
+            </li>
+
+
+            <li>
+                <a href="#">
+                    My Account
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+
+    <!-- =========================
+         Main Content
+    ========================== -->
+
+    <main class="main">
+
+
+        <!-- Topbar -->
+
+        <div class="topbar">
+
+            <div>
+
+                <h1>
+                    ShopLite
+                </h1>
+
+                <p>
+                    Kubernetes Microservices Demo
+                </p>
+
+            </div>
+
+
+            <div class="user">
+                👤 User
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             Statistics
+        ========================== -->
+
+        <div class="stats">
+
+
+            <div class="stat-card">
+
+                <p>
+                    Available Products
+                </p>
+
+                <h2 id="productCount">
+                    0
+                </h2>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <p>
+                    Product Catalog
+                </p>
+
+                <h2>
+                    Active
+                </h2>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <p>
+                    Backend Status
+                </p>
+
+                <h2
+                    id="backendStatus"
+                    style="color:#16a34a;"
+                >
+                    Checking...
+                </h2>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             Products
+        ========================== -->
+
+        <section class="panel">
+
+
+            <div class="panel-header">
+
+                <h2>
+                    Products
+                </h2>
+
+
+                <button onclick="loadProducts()">
+                    Refresh Products
+                </button>
+
+            </div>
+
+
+            <div id="status">
+                Loading products...
+            </div>
+
+
+            <section
+                id="products"
+                class="grid"
+            ></section>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
 
 <script>
-async function loadProducts() {
-  const status = document.getElementById('status');
-  const container = document.getElementById('products');
-  status.textContent = 'Loading from backend...';
-  try {
-    const response = await fetch('/api/products');
-    if (!response.ok) throw new Error('Backend request failed');
-    const products = await response.json();
-    container.innerHTML = products.map(p => `
-      <div class="card">
-        <h3>${p.name}</h3>
-        <p>${p.description}</p>
-        <p class="price">₹${p.price}</p>
-      </div>
-    `).join('');
-    status.textContent = 'Data received from Backend → MySQL';
-  } catch (e) {
-    status.textContent = 'Could not connect to backend.';
-    container.innerHTML = '<div class="card"><b>Backend unavailable</b><p>Check the Kubernetes services.</p></div>';
-  }
-}
-loadProducts();
+
+
+    /*
+     * Load products from backend
+     */
+
+    async function loadProducts() {
+
+        const status =
+            document.getElementById("status");
+
+
+        const container =
+            document.getElementById("products");
+
+
+        const productCount =
+            document.getElementById("productCount");
+
+
+        const backendStatus =
+            document.getElementById("backendStatus");
+
+
+        status.textContent =
+            "Loading from backend...";
+
+
+        status.className = "";
+
+
+        backendStatus.textContent =
+            "Checking...";
+
+
+        try {
+
+
+            const response =
+                await fetch("/api/products");
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Backend request failed"
+                );
+
+            }
+
+
+            const products =
+                await response.json();
+
+
+            /*
+             * Update product count
+             */
+
+            productCount.textContent =
+                products.length;
+
+
+            /*
+             * Backend status
+             */
+
+            backendStatus.textContent =
+                "Online";
+
+
+            backendStatus.style.color =
+                "#16a34a";
+
+
+            /*
+             * No products
+             */
+
+            if (products.length === 0) {
+
+                container.innerHTML = `
+
+                    <div class="empty">
+
+                        No products available.
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /*
+             * Display products
+             */
+
+            else {
+
+                container.innerHTML =
+                    products.map(product => `
+
+                        <div class="product-card">
+
+                            <div class="product-id">
+                                Product #${product.id}
+                            </div>
+
+
+                            <h3>
+                                ${escapeHTML(
+                                    product.name
+                                )}
+                            </h3>
+
+
+                            <p class="description">
+
+                                ${escapeHTML(
+                                    product.description || ""
+                                )}
+
+                            </p>
+
+
+                            <p class="price">
+
+                                ₹${Number(
+                                    product.price
+                                ).toFixed(2)}
+
+                            </p>
+
+                        </div>
+
+                    `).join("");
+
+            }
+
+
+            status.textContent =
+                "Data received from Backend → MySQL";
+
+
+            status.className =
+                "success";
+
+
+        }
+
+
+        catch (error) {
+
+
+            console.error(error);
+
+
+            productCount.textContent =
+                "0";
+
+
+            backendStatus.textContent =
+                "Offline";
+
+
+            backendStatus.style.color =
+                "#dc2626";
+
+
+            status.textContent =
+                "Could not connect to backend.";
+
+
+            status.className =
+                "error";
+
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    <b>
+                        Backend unavailable
+                    </b>
+
+                    <p style="margin-top:8px;">
+
+                        Check the Kubernetes services.
+
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+
+    /*
+     * Prevent HTML injection
+     */
+
+    function escapeHTML(value) {
+
+        const div =
+            document.createElement("div");
+
+
+        div.textContent =
+            value;
+
+
+        return div.innerHTML;
+
+    }
+
+
+
+    /*
+     * Load products when page opens
+     */
+
+    loadProducts();
+
 </script>
+
+
 </body>
+
 </html>
