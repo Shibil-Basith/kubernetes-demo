@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopLite</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f7fa; color: #222; }
+    header { background: #111827; color: white; padding: 22px 8%; }
+    main { max-width: 1000px; margin: 35px auto; padding: 0 20px; }
+    .hero { background: white; padding: 28px; border-radius: 12px; margin-bottom: 24px; }
+    button { background: #2563eb; color: white; border: 0; padding: 10px 16px; border-radius: 7px; cursor: pointer; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px #0001; }
+    .price { font-size: 20px; font-weight: bold; }
+    #status { margin-top: 15px; color: #555; }
+  </style>
+</head>
+<body>
+<header><h1>ShopLite</h1><p>Kubernetes Microservices Demo</p></header>
+<main>
+  <section class="hero">
+    <h2>Products</h2>
+    <button onclick="loadProducts()">Refresh Products</button>
+    <div id="status">Loading...</div>
+  </section>
+  <section id="products" class="grid"></section>
+</main>
+
+<script>
+async function loadProducts() {
+  const status = document.getElementById('status');
+  const container = document.getElementById('products');
+  status.textContent = 'Loading from backend...';
+  try {
+    const response = await fetch('/api/products');
+    if (!response.ok) throw new Error('Backend request failed');
+    const products = await response.json();
+    container.innerHTML = products.map(p => `
+      <div class="card">
+        <h3>${p.name}</h3>
+        <p>${p.description}</p>
+        <p class="price">₹${p.price}</p>
+      </div>
+    `).join('');
+    status.textContent = 'Data received from Backend → MySQL';
+  } catch (e) {
+    status.textContent = 'Could not connect to backend.';
+    container.innerHTML = '<div class="card"><b>Backend unavailable</b><p>Check the Kubernetes services.</p></div>';
+  }
+}
+loadProducts();
+</script>
+</body>
+</html>
