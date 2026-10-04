@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: shibilbasith11/shoplite-backend:1.0
+          image: shibilbasith11/shoplite-backend:v2
           ports:
             - containerPort: 3000
           env:
