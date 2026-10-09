@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: shibilbasith11/shoplite-frontend:v3
+          image: shibilbasith11/shoplite-frontend:v1
           ports:
             - containerPort: 80
