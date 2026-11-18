@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: shibilbasith11/shoplite-admin:v1
+          image: musthaffaa/admin:v1
           ports:
             - containerPort: 80
